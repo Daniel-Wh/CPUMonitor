@@ -1,8 +1,8 @@
 {
-  "name": "electron-starter",
-  "productName": "APP NAME",
+  "name": "cpu-monitor",
+  "productName": "CPU Monitor",
   "version": "1.0.0",
-  "description": "Simple starter package for Electron apps",
+  "description": "Simple desktop cpu monitor",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
