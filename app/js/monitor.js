@@ -3,6 +3,7 @@ const osu = require("node-os-utils");
 const cpu = osu.cpu;
 const mem = osu.mem;
 const os = osu.os;
+const { ipcRenderer } = require("electron");
 
 let cpuOverload = 50;
 let alertFrequency = 5;
@@ -80,4 +81,39 @@ function runNotify(frequency) {
   const diffTime = Math.abs(now - notifyTime);
   const minutesPassed = Math.ceil(diffTime / (1000 * 60));
   return minutesPassed > frequency;
+}
+
+// getting default/updated settings from main process
+ipcRenderer.on("settings:get", (e, settings) => {
+  document.getElementById("cpu-overload").value = settings.cpuOverload;
+  cpuOverload = settings.cpuOverload;
+  alertFrequency = settings.alertFrequency;
+  document.getElementById("alert-frequency").value = settings.alertFrequency;
+});
+
+// send new settings to main
+const settingsForm = document.getElementById("settings-form");
+settingsForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const cpu = document.getElementById("cpu-overload").value;
+  const alert = document.getElementById("alert-frequency").value;
+
+  ipcRenderer.send("settings:set", {
+    cpuOverload: cpu,
+    alertFrequency: alert,
+  });
+
+  showAlert("settings saved");
+});
+
+// show alert for settings update
+function showAlert(msg) {
+  const alert = document.getElementById("alert");
+  alert.classList.remove("hide");
+  alert.innerText = msg;
+  alert.classList.add("alert");
+
+  setTimeout(() => {
+    alert.classList.add("hide");
+  }, 3000);
 }
