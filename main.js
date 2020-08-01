@@ -49,6 +49,12 @@ app.on("ready", () => {
   mainWindow.webContents.on("dom-ready", () => {
     mainWindow.webContents.send("settings:get", store.get("settings"));
   });
+  mainWindow.on("close", (e) => {
+    if (!app.isQuitting) {
+      e.preventDefault();
+      mainWindow.hide();
+    }
+  });
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
   const icon = path.join(__dirname, "assets", "icons", "tray_icon.png");
@@ -80,6 +86,15 @@ const menu = [
   ...(isMac ? [{ role: "appMenu" }] : []),
   {
     role: "fileMenu",
+  },
+  {
+    label: "View",
+    submenu: [
+      {
+        label: "Toggle Navigation",
+        click: () => mainWindow.webContents.send("nav:toggle"),
+      },
+    ],
   },
   ...(isDev
     ? [

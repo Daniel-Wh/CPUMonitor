@@ -48,7 +48,8 @@ document.getElementById("comp-name").innerText = os.hostname();
 
 // OS
 document.getElementById("os").innerText = `${os.type()} ${os.arch()}`;
-
+// navigation
+const nav = document.getElementById("nav");
 // Total mem
 mem.info().then((info) => {
   document.getElementById("mem-total").innerText = `${info.totalMemMb} GB`;
@@ -117,3 +118,8 @@ function showAlert(msg) {
     alert.classList.add("hide");
   }, 3000);
 }
+
+// receive nav toggle
+ipcRenderer.on("nav:toggle", () => {
+  nav.classList.toggle("hide");
+});
