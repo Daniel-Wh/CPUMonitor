@@ -1,7 +1,7 @@
 ## CPU-Monitor
 
 Simple cross platform desktop app built using Electron.js and a handful and OS-utils. <br> CPU-Monitor runs in the tray and monitors CPU-usage. User can generate a CPU usage threshold that will generate
-notifications. 
+notifications when the CPU usage exceeds the threshold. Initial threshold set to 80%. 
 
 ## How to install
 
