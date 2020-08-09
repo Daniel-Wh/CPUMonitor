@@ -6,7 +6,7 @@ notifications when the CPU usage exceeds the threshold. Initial threshold set to
 ## How to install
 
 You will need node.js installed on your machine in order to initiate the build. <br>
-Fork the repo, after forking the repo, run: npm install <br>
+Clone the repo, after cloning the repo, run: npm install <br>
 this will install the necessary dependencies. Now open the directory in a terminal and run the corresponding command that matches your operating system.<br>
 Mac: npm run package-mac <br>
 Win: npm run package-win <br>
